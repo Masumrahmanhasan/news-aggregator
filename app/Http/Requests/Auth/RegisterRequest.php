@@ -35,7 +35,11 @@ class RegisterRequest extends FormRequest
         ];
     }
 
-    protected function failedValidation(Validator $validator)
+    /**
+     * @param  Validator  $validator
+     * @return mixed
+     */
+    protected function failedValidation(Validator $validator): mixed
     {
         $errors = $validator->errors();
         $message = 'Registration Validation failed';

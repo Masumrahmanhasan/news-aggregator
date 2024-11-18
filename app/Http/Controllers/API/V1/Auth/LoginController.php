@@ -11,6 +11,10 @@ class LoginController extends Controller
 {
     use SendResponse;
 
+    /**
+     * @param  LoginRequest  $request
+     * @return JsonResponse
+     */
     public function __invoke(LoginRequest $request): JsonResponse
     {
         if (!auth()->attempt($request->only('email', 'password'))) {
@@ -22,6 +26,10 @@ class LoginController extends Controller
         return $this->success($this->respondWithToken($token), 'You have been logged in successfully');
     }
 
+    /**
+     * @param  string  $token
+     * @return array
+     */
     protected function respondWithToken(string $token): array
     {
         return [

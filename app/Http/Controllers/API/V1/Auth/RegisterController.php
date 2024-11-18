@@ -12,6 +12,10 @@ class RegisterController extends Controller
 {
     use SendResponse;
 
+    /**
+     * @param  RegisterRequest  $request
+     * @return JsonResponse
+     */
     public function __invoke(RegisterRequest $request): JsonResponse
     {
         $user = User::query()->create($request->validated());
