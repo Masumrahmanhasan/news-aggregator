@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class UserPreference extends Model
 {
     protected $fillable = [
-        'user_id',
         'preferred_sources',
         'preferred_categories',
         'preferred_authors',

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\API\V1;
 
-use App\Filter\CategoryFilter;
-use App\Filter\DateFilter;
-use App\Filter\KeywordFilter;
-use App\Filter\SourceFilter;
-use App\Filter\UserPreferenceFilter;
+use App\Filters\CategoryFilter;
+use App\Filters\DateFilter;
+use App\Filters\KeywordFilter;
+use App\Filters\SourceFilter;
+use App\Filters\UserPreferenceFilter;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Traits\SendResponse;

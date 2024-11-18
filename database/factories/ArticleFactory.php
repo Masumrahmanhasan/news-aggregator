@@ -17,7 +17,12 @@ class ArticleFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'title' => fake()->sentence(), // Generates a random sentence for the title
+            'source' => fake()->word(),    // Generates a random word for the source
+            'content' => fake()->paragraph(), // Generates a random paragraph for the content
+            'author' => fake()->name(),    // Generates a random name for the author
+            'published_at' => fake()->dateTimeBetween('-1 year', 'now'), // Random date within the last year
+            'category' => fake()->word(),   // Generates a random word for the category
         ];
     }
 }

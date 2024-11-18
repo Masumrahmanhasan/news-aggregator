@@ -1,17 +1,16 @@
 <?php
 
-namespace App\Filter;
+namespace App\Filters;
 use Closure;
-
-class CategoryFilter
+class SourceFilter
 {
     public function handle($query, Closure $next)
     {
-        if (!request()->has('category')) {
+        if (!request()->has('source')) {
             return $next($query);
         }
 
-        $query->where('category', request('category'));
+        $query->where('source', request('source'));
 
         return $next($query);
     }

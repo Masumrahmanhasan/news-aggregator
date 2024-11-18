@@ -9,7 +9,6 @@ use Exception;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
-use function dd;
 
 class GuardianNewsService implements NewsSourceInterface
 {
