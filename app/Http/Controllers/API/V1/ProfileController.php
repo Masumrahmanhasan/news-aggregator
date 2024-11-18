@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Traits\SendResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use function dd;
 
 class ProfileController extends Controller
 {

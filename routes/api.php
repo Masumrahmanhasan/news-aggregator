@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\V1\ArticleController;
 use App\Http\Controllers\API\V1\Auth\LoginController;
 use App\Http\Controllers\API\V1\Auth\PasswordResetController;
 use App\Http\Controllers\API\V1\Auth\RegisterController;
@@ -19,3 +20,7 @@ Route::group(['prefix' => 'users', 'middleware' => ['auth:sanctum']], function (
     Route::get('/profile', [ProfileController::class, 'index']);
     Route::post('logout', [ProfileController::class, 'destroy']);
 });
+
+Route::get('/articles', [ArticleController::class, 'index']);
+Route::get('/articles/{article}', [ArticleController::class, 'show']);
+

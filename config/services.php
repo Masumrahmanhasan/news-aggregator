@@ -34,5 +34,17 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+    'news_api' => [
+        'base_url' => env('NEWS_API_BASE_URL'),
+        'api_key' => env('NEWS_API_KEY'),
+    ],
+    'guardian_api' => [
+        'base_url' => env('GUARDIAN_API_BASE_URL'),
+        'api_key' => env('GUARDIAN_API_KEY'),
+    ],
+    'new_york_times_api' => [
+        'base_url' => env('NEWYORK_TIME_API_BASE_URL'),
+        'api_key' => env('NEWYORK_TIME_API_KEY'),
+    ]
 
 ];
