@@ -9,6 +9,7 @@ use Exception;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use function dd;
 
 class GuardianNewsService implements NewsSourceInterface
 {
@@ -56,7 +57,7 @@ class GuardianNewsService implements NewsSourceInterface
             if (!empty($article['fields']['body'])) {
                 $data[] = [
                     'title' => $article['webTitle'],
-                    'source' => $article['publication'],
+                    'source' => $article['fields']['publication'],
                     'published_at' => Carbon::parse($article['webPublicationDate'])->format('Y-m-d H:i:s'),
                     'content' => strip_tags($article['fields']['body']),
                     'author' => $article['fields']['byline'] ?? 'Unknown',
