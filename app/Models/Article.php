@@ -11,10 +11,5 @@ class Article extends Model
     /** @use HasFactory<\Database\Factories\ArticleFactory> */
     use HasFactory;
 
-    protected $fillable = ['title', 'source', 'content', 'author', 'published_at'];
-
-    public function categories(): BelongsToMany
-    {
-        return $this->belongsToMany(Category::class);
-    }
+    protected $fillable = ['title', 'source', 'content', 'author', 'published_at', 'category'];
 }

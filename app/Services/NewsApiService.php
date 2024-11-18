@@ -2,12 +2,15 @@
 
 namespace App\Services;
 
+use App\Models\Article;
+use App\NewsSourceInterface;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
-use function dd;
 
-class NewsApiService extends BaseNewsServices
+class NewsApiService implements NewsSourceInterface
 {
     protected string $url;
     protected string $apiKey;
@@ -24,10 +27,10 @@ class NewsApiService extends BaseNewsServices
      * @throws ConnectionException
      * @throws Exception
      */
-    protected function sendRequest(string $endpoint): array
+    protected function sendRequest(string $endpoint, $params = []): array
     {
         $response = Http::withHeaders(['x-api-key' => $this->apiKey])
-            ->baseUrl($this->url)->get($endpoint);
+            ->baseUrl($this->url)->get($endpoint, $params);
 
         if (!$response->successful()) {
             throw new \Exception('Failed to fetch data from News API: ' . $response->body());
@@ -40,7 +43,30 @@ class NewsApiService extends BaseNewsServices
      */
     public function fetchArticles(): void
     {
-        $response = $this->sendRequest('top-headlines?category=business');
-        $this->storeArticles($response['articles'], 'business');
+        $response = $this->sendRequest('top-headlines', ['category' => 'Business']);
+
+        $this->storeArticles($response['articles'], 'Business');
+    }
+
+    protected function storeArticles(array $articles, $category): void
+    {
+        $data = [];
+        foreach ($articles as $article) {
+            if (!empty($article['content'])) {
+                $data[] = [
+                    'title' => $article['title'],
+                    'source' => $article['source']['name'],
+                    'published_at' => Carbon::parse($article['publishedAt'])->format('Y-m-d H:i:s'),
+                    'content' => $article['content'],
+                    'author' => $article['author'],
+                    'category' => $category,
+                ];
+            }
+        }
+
+        // Use a transaction to ensure data integrity and improve performance
+        DB::transaction(function () use ($data, $category) {
+            Article::query()->upsert($data, ['title', 'source', 'published_at'], ['content', 'author', 'category']);
+        });
     }
 }
